@@ -1,0 +1,10 @@
+# test:
+#    path: /test/{age<\d+>?10}
+#    controller: App\Controller\TestController::test
+#    methods: [GET]
+#    host: ecommerce.dev
+#    defaults:
+#       age:  10
+#    requirements:
+#       age : \d+
+#    schemes: [https, http]
