@@ -1,3 +1,8 @@
-# index:
-#    path: /
-#    controller: App\Controller\TestController::index
+homepage:
+    path: /{_locale}
+    controller: App\Controller\HomeController::home
+    requirements:
+        _locale: '%app_locales%'
+    defaults:
+        template: home.html.twig
+        _locale: '%locale%'

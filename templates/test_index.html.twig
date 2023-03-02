@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+{% block title %}
+
+	Test page
+{% endblock %}
+{% block body %}
+
+	{# <h1>{{name|upper}}!</h1>
+			
+				<p>your age is
+					{{age}}</p>
+			
+				{% if age >= 18 %}
+					<h2>You are adult</h2>
+				{% else %}
+					<h2>You're a child!</h2>
+				{% endif %}
+			
+				{{formateur.name}}
+				<strong>{{formateur.email}}</strong>
+			
+				<ul>
+					{% for city in cities %}
+						<li>
+							{{loop.index}}
+							{{city}}
+						</li>
+					{% endfor %}
+				</ul>
+				<ul>
+					{% for i in 1..3 %}
+						<li>{{i}}</li>
+					{% endfor %}
+				</ul> #}
+
+
+	{% set formateur = formateur1 %}
+	{% include "_formateur.html.twig" %}
+	{% include "_formateur.html.twig" with {"formateur" : formateur2} %}
+
+{% endblock %}
