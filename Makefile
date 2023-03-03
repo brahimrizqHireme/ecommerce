@@ -1,4 +1,4 @@
-# include .env
+include .env
 # Determine if .env.local file exist
 ifneq ("$(wildcard .env.local)", "")
 	include .env.local
@@ -30,6 +30,7 @@ help: ## Shows available commands with description
 
 build: ## Build dev environment
 ifeq ($(INSIDE_DOCKER_CONTAINER), 0)
+	@echo ${APP_ENV}
 	@HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) WEB_PORT_HTTP=$(WEB_PORT_HTTP) WEB_PORT_SSL=$(WEB_PORT_SSL) XDEBUG_CONFIG=$(XDEBUG_CONFIG) INNODB_USE_NATIVE_AIO=$(INNODB_USE_NATIVE_AIO) docker-compose -f docker-compose.yml build
 else
 	$(ERROR_ONLY_FOR_HOST)
@@ -245,12 +246,6 @@ endif
 
 create-db: ## Create database
 	@echo "Creating database"
-	@echo ${APP_ENV}
-	@make exec cmd="php bin/console doctrine:database:create"
-	
-create-db: ## Create database
-	@echo "Creating database"
-	@echo ${APP_ENV}
 	@make exec cmd="php bin/console doctrine:database:create"
 	
 drop-migrate: ## Drops databases and runs all migrations for the main/test databases
