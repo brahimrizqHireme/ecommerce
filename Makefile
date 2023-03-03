@@ -245,7 +245,8 @@ endif
 
 create-db: ## Create database
 	@echo "Creating database"
-	@make exec cmd="php bin/console doctrine:database:create --if-not-exists"
+	@echo ${APP_ENV}
+	@make exec cmd="php bin/console doctrine:database:create"
 	
 drop-migrate: ## Drops databases and runs all migrations for the main/test databases
 	@make exec cmd="php bin/console doctrine:schema:drop --full-database --force"
