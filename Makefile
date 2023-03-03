@@ -248,6 +248,11 @@ create-db: ## Create database
 	@echo ${APP_ENV}
 	@make exec cmd="php bin/console doctrine:database:create"
 	
+create-db: ## Create database
+	@echo "Creating database"
+	@echo ${APP_ENV}
+	@make exec cmd="php bin/console doctrine:database:create"
+	
 drop-migrate: ## Drops databases and runs all migrations for the main/test databases
 	@make exec cmd="php bin/console doctrine:schema:drop --full-database --force"
 	@make exec cmd="php bin/console doctrine:schema:drop --full-database --force --env=test"
