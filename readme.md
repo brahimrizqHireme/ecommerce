@@ -1,12 +1,16 @@
 # PHP symfony environment
 Docker environment required to run Symfony (based on official php and mysql docker hub repositories).
 
+[![Actions Status](https://github.com/brahimrizqHireme/ecommerce/workflows/Symfony%20App/badge.svg)](https://github.com/brahimrizqHireme/ecommerce/actions)
+[![Coverage Status](https://coveralls.io/repos/github/systemsdk/docker-nginx-php-symfony/badge.svg)]
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 
 ## Requirements
 * Docker version 18.06 or later
 * Docker compose version 1.22 or later
 * An editor or IDE
-* MySQL Workbench
+* MySQL
 
 Note: OS recommendation - Linux Ubuntu based.
 

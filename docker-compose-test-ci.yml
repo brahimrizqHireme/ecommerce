@@ -35,9 +35,9 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}-symfony
     volumes:
       - ./.git:/var/www/html/.git:cached
-    depends_on:
-      - mysql
-      - rabbitmq
+    # depends_on:
+    #   - mysql
+    #   - rabbitmq
     networks:
       - symfony
 
@@ -46,42 +46,41 @@ services:
     <<: *symfony-template
     container_name: ${COMPOSE_PROJECT_NAME}-supervisord
     expose: []
-    command: [ "/usr/bin/supervisord" ]
-
-  mysql:
-    image: mysql:8.0
-    platform: linux/x86_64
-    container_name: ${COMPOSE_PROJECT_NAME}-mysql
-    command: --default-authentication-plugin=mysql_native_password --innodb-use-native-aio=${INNODB_USE_NATIVE_AIO:-1}
-    environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: symfony
-    ports:
-      - "33061:3306"
-    volumes:
-      - ./var/mysql-data:/var/lib/mysql:delegated
-      - ./.docker/dev/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
-    networks:
-      - symfony
-
-  rabbitmq:
-    image: ${COMPOSE_PROJECT_NAME}-rabbitmq
-    build:
-      context: ./.docker/rabbitmq/
-      dockerfile: ./Dockerfile
-    container_name: ${COMPOSE_PROJECT_NAME}-rabbitmq
-    environment:
-      RABBITMQ_ERLANG_COOKIE: 7ead507151fc4461b9f45c1161384a04
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-      RABBITMQ_DEFAULT_VHOST: /
-    ports:
-      - "15672:15672"
-    volumes:
-      - ./var/rabbitmq:/var/lib/rabbitmq:delegated
-    networks:
-      - symfony
+  #   command: [ "/usr/bin/supervisord" ]
 
 networks:
   symfony:
     name: symfony
+  # mysql:
+  #   image: mysql:8.0
+  #   platform: linux/x86_64
+  #   container_name: ${COMPOSE_PROJECT_NAME}-mysql
+  #   command: --default-authentication-plugin=mysql_native_password --innodb-use-native-aio=${INNODB_USE_NATIVE_AIO:-1}
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     MYSQL_DATABASE: symfony
+  #   ports:
+  #     - "33061:3306"
+  #   volumes:
+  #     - ./var/mysql-data:/var/lib/mysql:delegated
+  #     - ./.docker/dev/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+  #   networks:
+  #     - symfony
+  # rabbitmq:
+  #   image: ${COMPOSE_PROJECT_NAME}-rabbitmq
+  #   build:
+  #     context: ./.docker/rabbitmq/
+  #     dockerfile: ./Dockerfile
+  #   container_name: ${COMPOSE_PROJECT_NAME}-rabbitmq
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: 7ead507151fc4461b9f45c1161384a04
+  #     RABBITMQ_DEFAULT_USER: guest
+  #     RABBITMQ_DEFAULT_PASS: guest
+  #     RABBITMQ_DEFAULT_VHOST: /
+  #   ports:
+  #     - "15672:15672"
+  #   volumes:
+  #     - ./var/rabbitmq:/var/lib/rabbitmq:delegated
+  #   networks:
+  #     - symfony
+
