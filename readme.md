@@ -1,13 +1,6 @@
 # PHP symfony environment
 Docker environment required to run Symfony (based on official php and mysql docker hub repositories).
 
-[![Actions Status](https://github.com/systemsdk/docker-nginx-php-symfony/workflows/Symfony%20App/badge.svg)](https://github.com/systemsdk/docker-nginx-php-symfony/actions)
-[![CircleCI](https://circleci.com/gh/systemsdk/docker-nginx-php-symfony.svg?style=svg)](https://circleci.com/gh/systemsdk/docker-nginx-php-symfony)
-[![Coverage Status](https://coveralls.io/repos/github/systemsdk/docker-nginx-php-symfony/badge.svg)](https://coveralls.io/github/systemsdk/docker-nginx-php-symfony)
-[![Latest Stable Version](https://poser.pugx.org/systemsdk/docker-nginx-php-symfony/v)](https://packagist.org/packages/systemsdk/docker-nginx-php-symfony)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-
-[Source code](https://github.com/systemsdk/docker-nginx-php-symfony.git)
 
 ## Requirements
 * Docker version 18.06 or later
@@ -227,40 +220,6 @@ make phpinsights
 etc....
 ```
 Notes: Please see more commands in Makefile
-
-## Architecture & packages
-* [Symfony 6](https://symfony.com)
-* [doctrine-migrations-bundle](https://github.com/doctrine/DoctrineMigrationsBundle)
-* [doctrine-fixtures-bundle](https://github.com/doctrine/DoctrineFixturesBundle)
-* [command-scheduler-bundle](https://packagist.org/packages/dukecity/command-scheduler-bundle)
-* [phpunit](https://github.com/sebastianbergmann/phpunit)
-* [phpunit-bridge](https://github.com/symfony/phpunit-bridge)
-* [browser-kit](https://github.com/symfony/browser-kit)
-* [css-selector](https://github.com/symfony/css-selector)
-* [security-checker](https://github.com/fabpot/local-php-security-checker)
-* [messenger](https://symfony.com/doc/current/messenger.html)
-* [composer-bin-plugin](https://github.com/bamarni/composer-bin-plugin)
-* [composer-normalize](https://github.com/ergebnis/composer-normalize)
-* [composer-unused](https://packagist.org/packages/icanhazstring/composer-unused)
-* [composer-require-checker](https://packagist.org/packages/maglnet/composer-require-checker)
-* [requirements-checker](https://github.com/symfony/requirements-checker)
-* [security-advisories](https://github.com/Roave/SecurityAdvisories)
-* [php-coveralls](https://github.com/php-coveralls/php-coveralls)
-* [easy-coding-standard](https://github.com/Symplify/EasyCodingStandard)
-* [PhpMetrics](https://github.com/phpmetrics/PhpMetrics)
-* [phpcpd](https://packagist.org/packages/sebastian/phpcpd)
-* [phpmd](https://packagist.org/packages/phpmd/phpmd)
-* [phpstan](https://packagist.org/packages/phpstan/phpstan)
-* [phpinsights](https://packagist.org/packages/nunomaduro/phpinsights)
-* [rector](https://packagist.org/packages/rector/rector)
-
-## Guidelines
-* [Commands](docs/commands.md)
-* [Development](docs/development.md)
-* [Testing](docs/testing.md)
-* [IDE PhpStorm configuration](docs/phpstorm.md)
-* [Xdebug configuration](docs/xdebug.md)
-* [Messenger component](docs/messenger.md)
 
 ## Working on your project
 1. For new feature development, fork `develop` branch into a new branch with one of the two patterns:
