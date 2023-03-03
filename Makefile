@@ -1,4 +1,4 @@
-include .env
+# include .env
 # Determine if .env.local file exist
 ifneq ("$(wildcard .env.local)", "")
 	include .env.local
