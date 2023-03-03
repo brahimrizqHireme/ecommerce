@@ -38,6 +38,7 @@ endif
 
 build-test: ## Build test or continuous integration environment
 ifeq ($(INSIDE_DOCKER_CONTAINER), 0)
+	@echo ${APP_ENV}
 	@HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) WEB_PORT_HTTP=$(WEB_PORT_HTTP) WEB_PORT_SSL=$(WEB_PORT_SSL) XDEBUG_CONFIG=$(XDEBUG_CONFIG) INNODB_USE_NATIVE_AIO=$(INNODB_USE_NATIVE_AIO) docker-compose -f docker-compose-test-ci.yml build
 else
 	$(ERROR_ONLY_FOR_HOST)
@@ -245,7 +246,8 @@ else
 endif
 
 create-db: ## Create database
-	@echo "Creating database"
+	@echo ${DATABASE_URL} 
+	@echo "Creating database ${APP_ENV}"
 	@make exec cmd="php bin/console doctrine:database:create"
 	
 drop-migrate: ## Drops databases and runs all migrations for the main/test databases
