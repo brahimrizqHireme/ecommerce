@@ -102,6 +102,18 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/monolog-bundle": {
+        "version": "3.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.7",
+            "ref": "213676c4ec929f046dfde5ea8e97625b81bc0578"
+        },
+        "files": [
+            "config/packages/monolog.yaml"
+        ]
+    },
     "symfony/requirements-checker": {
         "version": "2.0",
         "recipe": {
@@ -161,19 +173,6 @@
         "files": [
             "config/packages/web_profiler.yaml",
             "config/routes/web_profiler.yaml"
-        ]
-    },
-    "systemsdk/easy-log-bundle": {
-        "version": "1.10",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "1.10",
-            "ref": "7543c149e6af01d8e3d702d579631699712ac221"
-        },
-        "files": [
-            "config/packages/dev/systemsdk_easy_log.yaml",
-            "config/packages/test/systemsdk_easy_log.yaml"
         ]
     },
     "twig/extra-bundle": {
