@@ -21,13 +21,13 @@
 
 			<div class="row">
 				<div class="col">
-					{{form_row(formView.name)}}
-					{{form_row(formView.price)}}
+					{{form_row(formView.name, {'attr' : {'class' : 'mb-3'}})}}
+					{{form_row(formView.price, {'attr' : {'class' : 'mb-3'}})}}
 				</div>
 				<div class="col">
-					{{form_row(formView.mainPicture)}}
-					{{form_row(formView.category)}}
-					{{form_row(formView.shortDescription)}}
+					{{form_row(formView.mainPicture, {'attr' : {'class' : 'mb-3'}})}}
+					{# {{form_row(formView.category)}} #}
+					{{form_row(formView.shortDescription, {'attr' : {'class' : 'mb-3'}})}}
 				</div>
 
 			</div>

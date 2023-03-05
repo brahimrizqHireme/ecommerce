@@ -16,10 +16,11 @@
 	</ol>
 	<h2>
 		{{product.name}}
-		{{product.price}}
-
-		({{product.id}})
+		{{(product.price/100)|format_currency('EUR', { rounding_mode: 'floor'})}}
 	</h2>
+	<small>
+		{{product.id}}
+	</small>
 
 	<div class="row">
 		<div class="col-4">

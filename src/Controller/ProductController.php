@@ -81,7 +81,6 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $product->setSlug(strtolower($this->slugger->slug($product->getName())));
             $this->em->persist($product);
             $this->em->flush();
 
@@ -106,7 +105,7 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $product->setSlug(strtolower($this->slugger->slug($product->getName())));
+            // $product->setSlug(strtolower($this->slugger->slug($product->getName())));
             $this->em->flush();
             return $this->redirectToRoute('product_show', [
                 'category_slug' => $product->getCategory()->getSlug(),
