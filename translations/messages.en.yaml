@@ -1,2 +1,26 @@
+admin:
+  product:
+    create:
+      page_title: Add new product
+      add: Add
+    edit:
+      page_title: Update product
+      edit: Update
+  category:
+    create:
+      page_title: Add new category
+      add: Add
+    edit:
+      page_title: Update category
+      edit: Edit
 home:
   page_title: Home %title%
+  add_to_cart: Add to cart
+
+category:
+  page_title: Category %title%
+  add_to_cart: Add to cart
+
+show:
+  page_title: Product %title%
+  add_to_cart: Add to cart

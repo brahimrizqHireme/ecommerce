@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{# {% form_theme formView 'bootstrap_4_layout.html.twig' %} #}
+{% block title %}
+	{{'admin.product.create.page_title'|trans({'%title%' : ''})}}
+{% endblock %}
+
+
+{% block body %}
+	<h1>{{'admin.product.create.page_title'|trans({'%title%' : ''})}}</h1>
+
+
+	<div class="card mb-3">
+		<div class="card-header">{{'admin.product.create.page_title'|trans({'%title%' : ''})}}</div>
+		<div
+			class="card-body">
+
+			{# {{form(formView)}} #}
+			{{form_start(formView)}}
+
+			{# {{form_errors(formView)}} #}
+
+			<div class="row">
+				<div class="col">
+					{{form_row(formView.name)}}
+					{{form_row(formView.price)}}
+				</div>
+				<div class="col">
+					{{form_row(formView.mainPicture)}}
+					{{form_row(formView.category)}}
+					{{form_row(formView.shortDescription)}}
+				</div>
+
+			</div>
+			<button type="submit" class="btn btn-primary btn-md">
+				<i class="fas fa-save"></i>
+				{{'admin.product.create.add'|trans}}
+			</button>
+
+
+			{# {{form_widget(formView)}} #}
+
+			{{form_end(formView)}}
+		</div>
+	</div>
+
+{% endblock %}
+
+{# 
+{% block form_row %}
+
+	{{form_label(form)}}
+	{{form_widget(form, {'attr' : {'class' : 'form-control'}})}}
+	{{form_help(form)}}
+	{{form_errors(form)}}
+
+{% endblock %} #}

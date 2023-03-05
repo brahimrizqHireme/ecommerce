@@ -1,2 +1,26 @@
+admin:
+  product:
+    create:
+      page_title: Ajouter un nouveau produit
+      add: Ajouter
+    edit:
+      page_title: Modifier le produit
+      edit: Modifier
+  category:
+    create:
+      page_title: Ajouter une nouvelle catégorie
+      add: Ajouter
+    edit:
+      page_title: Modifier la catégorie
+      edit: Modifier
 home:
   page_title: Accueil %title%
+  add_to_cart: Ajouter au panier
+
+category:
+  page_title: Department %title%
+  add_to_cart: Ajouter au panier
+
+show:
+  page_title: Produit %title%
+  add_to_cart: Ajouter au panier

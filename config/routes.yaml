@@ -1,8 +1,18 @@
+controllers:
+    resource: '../src/Controller/'
+    type: annotation
+    prefix: /{_locale}
+    requirements:
+        _locale: '%app_locales%'
+    defaults:
+        _locale: '%locale%' 
+
 homepage:
     path: /{_locale}
     controller: App\Controller\HomeController::home
     requirements:
         _locale: '%app_locales%'
     defaults:
-        template: home.html.twig
         _locale: '%locale%'
+
+       
