@@ -27,9 +27,9 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, ['label' => 'Product name', 'attr' => ['placeholder' => 'Enter product name']])
+            ->add('name', TextType::class, ['label' => 'Product name', 'required' => false, 'attr' => ['placeholder' => 'Enter product name']])
             ->add('mainPicture', UrlType::class, ['label' => 'Picture url', 'attr' => ['placeholder' => 'Enter product image']])
-            ->add('price', PriceType::class, ['label' => 'Product price', 'attr' => ['placeholder' => 'Enter price in €']])
+            ->add('price', PriceType::class, ['label' => 'Product price', 'required' => false, 'attr' => ['placeholder' => 'Enter price in €']])
             ->add('shortDescription', TextareaType::class, ['label' => 'Short description', 'attr' => ['placeholder' => 'Please decribe your product details']]);
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
@@ -39,6 +39,16 @@ class ProductType extends AbstractType
                 $product->setSlug(strtolower($this->slugger->slug($product->getName())));
             }
         });
+
+        // $builder->get('price')
+        //     ->addModelTransformer(new CallbackTransformer(
+        //         function ($value) {
+        //             return $value;
+        //         },
+        //         function ($value) {
+        //             return $value;
+        //         },
+        //     ));
 
         // $builder->get('price')->addModelTransformer(new CentTransformer);
 
@@ -65,14 +75,14 @@ class ProductType extends AbstractType
         //     }
 
         //     if (is_null($product->getName())) {
-        //         $form->add('category', EntityType::class, [
-        //             'label' => 'Product category',
-        //             'placeholder' => '-- Select a category --',
-        //             'class' => Category::class,
-        //             'choice_label' => function (Category $category) {
-        //                 return strtoupper($category->getName());
-        //             }
-        //         ]);
+        $builder->add('category', EntityType::class, [
+            'label' => 'Product category',
+            'placeholder' => '-- Select a category --',
+            'class' => Category::class,
+            'choice_label' => function (Category $category) {
+                return strtoupper($category->getName());
+            }
+        ]);
         //     }
         // });
     }

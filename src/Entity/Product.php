@@ -7,6 +7,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Mapping\MetadataInterface;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -17,21 +21,29 @@ class Product
     private $id;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'product.name.not_blank', groups: ['group'])]
+    #[Assert\Length(min: 8, max: 50, groups: ['group'])]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[Assert\PositiveOrZero(groups: ['group'])]
     private ?int $price = null;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
+    #[Assert\NotBlank()]
     private ?Category $category = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Url()]
+    #[Assert\NotBlank()]
     private ?string $mainPicture = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min: 10, max: 1000)]
     private ?string $shortDescription = null;
 
     public function getId(): ?Uuid
@@ -44,12 +56,24 @@ class Product
         $this->id = Uuid::v4();
     }
 
+    // public static function loadValidatorMetadata(ClassMetadata $metadata)
+    // {
+    //     $metadata->addPropertyConstraints('name', [
+    //         new Assert\NotBlank(['message' => 'product.name.not_blank']),
+    //         new Assert\Length(['min' => 3, 'max' => 50])
+    //     ]);
+    //     $metadata->addPropertyConstraints('price', [
+    //         new Assert\NotBlank(),
+    //         new Assert\Positive()
+    //     ]);
+    // }
+
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -61,7 +85,7 @@ class Product
         return $this->price;
     }
 
-    public function setPrice(int $price): self
+    public function setPrice(?int $price): self
     {
         $this->price = $price;
 
@@ -97,7 +121,7 @@ class Product
         return $this->mainPicture;
     }
 
-    public function setMainPicture(string $mainPicture): self
+    public function setMainPicture(?string $mainPicture): self
     {
         $this->mainPicture = $mainPicture;
 
@@ -109,7 +133,7 @@ class Product
         return $this->shortDescription;
     }
 
-    public function setShortDescription(string $shortDescription): self
+    public function setShortDescription(?string $shortDescription): self
     {
         $this->shortDescription = $shortDescription;
 

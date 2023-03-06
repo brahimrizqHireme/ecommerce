@@ -77,10 +77,12 @@ class ProductController extends AbstractController
     public function create(Request $request)
     {
         $product = new Product;
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, [
+            'validation_groups' => ['Default', 'group']
+        ]);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($product);
             $this->em->flush();
 
@@ -101,10 +103,12 @@ class ProductController extends AbstractController
         if (!$product) {
             throw $this->createNotFoundException('Products was not found!');
         }
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, [
+            'validation_groups' => ['Default', 'group']
+        ]);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             // $product->setSlug(strtolower($this->slugger->slug($product->getName())));
             $this->em->flush();
             return $this->redirectToRoute('product_show', [

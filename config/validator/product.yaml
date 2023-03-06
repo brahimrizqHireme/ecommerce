@@ -1,0 +1,4 @@
+# App\Entity\Product:
+#   properties:
+#     name:
+#       - NotBlank: {message : 'product.name.not_blank'}
