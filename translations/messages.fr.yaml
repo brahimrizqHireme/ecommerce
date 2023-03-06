@@ -25,3 +25,8 @@ category:
 show:
   page_title: Produit %title%
   add_to_cart: Ajouter au panier
+
+navbar:
+  signup: Inscription
+  login:  Connexion
+  logout: Se déconnecter

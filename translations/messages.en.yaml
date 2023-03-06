@@ -25,3 +25,8 @@ category:
 show:
   page_title: Product %title%
   add_to_cart: Add to cart
+
+navbar:
+  signup: Sign up
+  login:  Login
+  logout: Logout
