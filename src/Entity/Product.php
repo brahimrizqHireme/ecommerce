@@ -18,7 +18,9 @@ class Product
 
     #[ORM\Id]
     #[ORM\Column(name: 'id', type: 'uuid', unique: true)]
-    private $id;
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    private ?Uuid $id;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'product.name.not_blank', groups: ['group'])]
@@ -51,10 +53,10 @@ class Product
         return $this->id;
     }
 
-    public function __construct()
-    {
-        $this->id = Uuid::v4();
-    }
+    // public function __construct()
+    // {
+    //     $this->id = Uuid::v4();
+    // }
 
     // public static function loadValidatorMetadata(ClassMetadata $metadata)
     // {
