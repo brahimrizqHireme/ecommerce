@@ -1,7 +1,7 @@
 security:
     encoders:
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
-                algorithm: Bycrpt
+                algorithm: bcrypt
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
@@ -40,6 +40,13 @@ security:
                 check_path: app_login
                 username_parameter: email
                 password_parameter: password
+                # remember_me: false
+            login_link:
+                check_route: login_check
+                signature_properties: ['id']
+                max_uses: 1
+                lifetime: 600
+                failure_path: app_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

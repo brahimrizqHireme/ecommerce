@@ -22,3 +22,6 @@ app_logout:
     name_prefix: app_
     methods: GET
     controller: App\Controller\SecurityController::logout
+
+login_check:
+    path: /login_check

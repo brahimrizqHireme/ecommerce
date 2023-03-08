@@ -13,13 +13,13 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Liior\Faker\Prices;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
 
-    public function __construct(private SluggerInterface $slugger, private UserPasswordEncoderInterface $encoder)
+    public function __construct(private SluggerInterface $slugger, private UserPasswordHasherInterface $encoder)
     {
     }
 
@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
         $faker->addProvider(new PicsumPhotosProvider($faker));
 
         $admin = new User();
-        $hashedPassword = $this->encoder->encodePassword($admin, 'password');
+        $hashedPassword = $this->encoder->hashPassword($admin, 'password');
         $admin->setEmail('admin@admin.com')
             ->setUserName('admin')
             ->setRoles(['ROLE_ADMIN'])
@@ -41,7 +41,7 @@ class AppFixtures extends Fixture
 
         for ($u = 0; $u < 5; $u++) {
             $user = new User();
-            $hashedPassword = $this->encoder->encodePassword($user, 'password');
+            $hashedPassword = $this->encoder->hashPassword($user, 'password');
             $user->setEmail("user$u@admin.com")
                 ->setUserName($faker->userName())
                 ->setPassword($hashedPassword);

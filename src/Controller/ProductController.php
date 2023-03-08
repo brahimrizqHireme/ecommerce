@@ -64,9 +64,10 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{category_slug}/{slug}', name: 'product_show')]
-    public function show(string $slug)
+    #[ParamConverter('product', class: 'App\Entity\Product', options: ['mapping' => ['slug' => 'slug']])]
+    public function show(string $slug, ?Product $product)
     {
-        $product = $this->productRepository->findOneBy(['slug' => $slug]);
+        // $product = $this->productRepository->findOneBy(['slug' => $slug]);
 
         if (!$product) {
             throw $this->createNotFoundException('Products was not found!');
