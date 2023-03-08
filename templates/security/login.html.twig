@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{'navbar.login'|trans}}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<dvi class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+
+			<h1>{{'navbar.login'|trans}}</h1>
+
+			{% if error %}
+				<div class="alert alert-danger">
+					{{error.message}}
+				</div>
+			{% endif %}
+
+			{{form_start(formView)}}
+
+
+			{{form_label(formView.email)}}
+			{{form_widget(formView.email, {'attr': {'class' : 'mb-3'}})}}
+			{{form_help(formView.email)}}
+			{{form_errors(formView.email)}}
+
+
+			{{form_row(formView.password, {'attr': {'class' : 'mb-3'}})}}
+
+
+			<button type="submit" class="btn btn-success btn-sm">{{'navbar.login'|trans}}</button>
+
+
+			{{form_end(formView)}}
+		</dvi>
+	</div>
+
+{% endblock %}

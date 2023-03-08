@@ -7,7 +7,11 @@
 
 {% block body %}
 	<h1>{{'admin.category.edit.page_title'|trans({'%title%' : ''})}}</h1>
-
+		{# {% if is_granted('CAN_EDIT', category) %}
+			<h2>yes i'm allowed to see this cat</h2>
+			{% else %}
+			<h2>no i'm allowed</h2>	
+		{% endif %} #}
 
 	<div class="card mb-3">
 		<div class="card-header">{{'admin.category.edit.page_title'|trans({'%title%' : ''})}}</div>

@@ -1,6 +1,8 @@
 controllers:
-    resource: '../src/Controller/'
+    resource: '../src/Controller/*'
     type: annotation
+    # exclude: 
+    #     - '../src/Controller/SecurityController.php'
     prefix: /{_locale}
     requirements:
         _locale: '%app_locales%'
@@ -15,4 +17,8 @@ homepage:
     defaults:
         _locale: '%locale%'
 
-       
+app_logout:
+    path: /logout
+    name_prefix: app_
+    methods: GET
+    controller: App\Controller\SecurityController::logout

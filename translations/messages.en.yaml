@@ -30,3 +30,5 @@ navbar:
   signup: Sign up
   login:  Login
   logout: Logout
+  choose_language: Choose language
+  user: Account

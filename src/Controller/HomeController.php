@@ -22,13 +22,11 @@ class HomeController extends AbstractController
     #[Route('/', name: 'homepage')]
     public function home(ProductRepository $productRepository, ValidatorInterface $validator): Response
     {
-        $product = new Product;
+        // $product = new Product;
 
-        $product->setName('22');
-        $product->setPrice(5);
-        $result = $validator->validate($product);
-
-        dd($result);
+        // $product->setName('22');
+        // $product->setPrice(5);
+        // $result = $validator->validate($product);
         $products = $productRepository->findBy([], [], 3);
         return $this->render('home.html.twig', [
             'products' => $products

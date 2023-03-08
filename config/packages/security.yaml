@@ -1,4 +1,7 @@
 security:
+    encoders:
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+                algorithm: Bycrpt
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
@@ -10,7 +13,13 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-           
+                property: email
+    
+    access_decision_manager:
+        strategy: unanimous
+        allow_if_all_abstain: false
+        allow_if_equal_granted_denied: true  
+        # strategy_service: App\Security\MyCustomAccessDecisionStrategy
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -18,6 +27,19 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            # guard:
+            #     authenticators:
+            #         - App\Security\LoginFormAuthenticator
+            # custom_authenticator: App\Security\LoginFormAuthenticator
+            # switch_user: true
+            logout:
+                path: app_logout
+
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                username_parameter: email
+                password_parameter: password
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -28,9 +50,13 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/%app_locales%/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/%app_locales%/admin, roles: [IS_AUTHENTICATED_FULLY] }
+        - { path: ^/%app_locales%/profile, roles: ROLE_USER }
 
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 when@test:
     security:
         password_hashers:

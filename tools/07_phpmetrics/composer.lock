@@ -137,12 +137,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "91fab0df509bae51a5e0c0d224f3e088cea08ea2"
+                "reference": "c0f395eaa893811e91726643ddca30fbd425fc48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/91fab0df509bae51a5e0c0d224f3e088cea08ea2",
-                "reference": "91fab0df509bae51a5e0c0d224f3e088cea08ea2",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/c0f395eaa893811e91726643ddca30fbd425fc48",
+                "reference": "c0f395eaa893811e91726643ddca30fbd425fc48",
                 "shasum": ""
             },
             "conflict": {
@@ -450,7 +450,7 @@
                 "phpmyfaq/phpmyfaq": "<=3.1.7",
                 "phpoffice/phpexcel": "<1.8",
                 "phpoffice/phpspreadsheet": "<1.16",
-                "phpseclib/phpseclib": "<=2.0.41|>=3,<3.0.7",
+                "phpseclib/phpseclib": "<2.0.31|>=3,<3.0.19",
                 "phpservermon/phpservermon": "<=3.5.2",
                 "phpunit/phpunit": ">=4.8.19,<4.8.28|>=5,<5.6.3",
                 "phpwhois/phpwhois": "<=4.2.5",
@@ -617,6 +617,7 @@
                 "unisharp/laravel-filemanager": "<=2.5.1",
                 "userfrosting/userfrosting": ">=0.3.1,<4.6.3",
                 "usmanhalalit/pixie": "<1.0.3|>=2,<2.0.2",
+                "uvdesk/community-skeleton": "<1.1",
                 "vanilla/safecurl": "<0.9.2",
                 "verot/class.upload.php": "<=1.0.3|>=2,<=2.0.4",
                 "vova07/yii2-fileapi-widget": "<0.1.9",
@@ -715,7 +716,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-03T23:04:13+00:00"
+            "time": "2023-03-07T21:04:26+00:00"
         }
     ],
     "aliases": [],

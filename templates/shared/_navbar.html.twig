@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 	<div class="container">
-		<a class="navbar-brand" href="/">EcoShop</a>
+		<a class="navbar-brand" href="{{ path('homepage') }}">EcoShop</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -15,15 +15,57 @@
 					</li>
 				{% endfor %}
 			</ul>
+
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a href="#" class="nav-link">{{'navbar.signup'|trans}}</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="btn btn-success btn-sm">{{'navbar.login'|trans}}</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="btn btn-danger btn-sm">{{'navbar.logout'|trans}}</a>
+				{% if app.user %}
+					<li class="nav-item dropdown">
+						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="user">
+							<i class="fa fa-user" aria-hidden="true"></i>
+							<span class="caret"></span>
+							<span class="sr-only">{{ app.user.userName }}</span>
+						</a>
+						<div
+							class="dropdown-menu user" role="menu" aria-labelledby="user">
+
+							{# <a href="{{ path('user_edit') }}" class="dropdown-item">
+																																																																																																																									<i class="fa fa-edit" aria-hidden="true"></i>
+																																																																																																																									{{ 'navbar.user'|trans }}
+																																																																																																																								</a> #}
+							<a class="dropdown-item disabled">{{ app.user.userName }}</a>
+							<span class="divider"></span>
+
+							<a href="{{ logout_path() }}" class="dropdown-item">
+								<i class="fa fa-sign-out" aria-hidden="true"></i>
+								{{ 'navbar.logout'|trans }}
+							</a>
+						</div>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a href="#" class="nav-link">{{'navbar.signup'|trans}}</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ path('app_login') }}" class="nav-link">
+							<i class="fa fa-sign-in" aria-hidden="true"></i>
+							{{ 'navbar.login'|trans }}
+						</a>
+					</li>
+				{% endif %}
+
+
+				<li class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="locales">
+						<i class="fa fa-globe" aria-hidden="true"></i>
+						<span class="caret"></span>
+						<span class="sr-only">{{ 'navbar.choose_language'|trans }}</span>
+					</a>
+					<div class="dropdown-menu locales" role="menu" aria-labelledby="locales">
+						{% for locale in locales() %}
+							<a {% if app.request.locale == locale.code %} aria-checked="true" class="dropdown-item active text-white" {% else %} class="dropdown-item" aria-checked="false" {% endif %} role="menuitem" href="{{ path(app.request.get('_route', 'homepage'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">{{ locale.name|capitalize }}
+								<small>{{ locale.code[0:2] }}</small>
+							</a>
+						{% endfor %}
+					</div>
 				</li>
 			</ul>
 		</div>

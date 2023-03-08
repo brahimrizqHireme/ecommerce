@@ -3,14 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\User;
 use App\Enum\Requirement;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class CategoryController extends AbstractController
@@ -50,12 +55,23 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/admin/category/{id}/edit', name: "category_edit", requirements: ['id' => Requirement::UUID_V4])]
-    public function edit(Request $request, string $id)
-    {
+    #[IsGranted('IS_AUTHENTICATED')]
+    public function edit(
+        Request $request,
+        string $id,
+        #[CurrentUser] User $user
+    ) {
+
         $category = $this->categoryRepository->find($id);
         if (!$category) {
             throw $this->createNotFoundException('Products was not found!');
         }
+
+        // $this->denyAccessUnlessGranted('CAN_EDIT', $category);
+        // if ($user !== $category->getOwner()) {
+        //     throw new AccessDeniedHttpException("Stop");
+        // }
+
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
