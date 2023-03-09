@@ -30,7 +30,7 @@
 			<span class="badge bg-info text-sm">{{product.category.name}}
 				({{product.category.id}})</span>
 			<p>{{product.shortDescription}}</p>
-			<a href="#" class="btn btn-success btn-md">
+			<a href="{{path('cart_add', {'id' : product.id})}}" class="btn btn-success btn-md">
 				<i class="fas fa-shopping-cart"></i>
 				{{'show.add_to_cart'|trans}}
 			</a>

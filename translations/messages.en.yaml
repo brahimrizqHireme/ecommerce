@@ -32,3 +32,6 @@ navbar:
   logout: Logout
   choose_language: Choose language
   user: Account
+
+cart:
+  page_title: Cart %title%

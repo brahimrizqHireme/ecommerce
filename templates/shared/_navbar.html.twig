@@ -1,3 +1,5 @@
+{% set cartQte = app.session.get('cart_qte', 0) %}
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 	<div class="container">
 		<a class="navbar-brand" href="{{ path('homepage') }}">EcoShop</a>
@@ -11,12 +13,20 @@
 
 				{% for cat in categoryRepository.findAll %}
 					<li class="nav-item">
-						<a class="nav-link" href="#">{{cat.name}}</a>
+						<a class="nav-link" href="{{path('product_category', {'slug': cat.slug})}}">{{cat.name}}</a>
 					</li>
 				{% endfor %}
 			</ul>
 
 			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="{{path('cart_show')}}" class="nav-link">
+						<i class="fas fa-shopping-cart"></i>
+						({{cartService.total}})
+						{{'cart.page_title'|trans({'%title%' : ''})}}
+						<span class="badge bg-danger rounded-pill">{{cartQte}}</span>
+					</a>
+				</li>
 				{% if app.user %}
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="user">
@@ -28,9 +38,9 @@
 							class="dropdown-menu user" role="menu" aria-labelledby="user">
 
 							{# <a href="{{ path('user_edit') }}" class="dropdown-item">
-																																																																																																																									<i class="fa fa-edit" aria-hidden="true"></i>
-																																																																																																																									{{ 'navbar.user'|trans }}
-																																																																																																																								</a> #}
+																																																																																																																																																																																																																																																																																			<i class="fa fa-edit" aria-hidden="true"></i>
+																																																																																																																																																																																																																																																																																			{{ 'navbar.user'|trans }}
+																																																																																																																																																																																																																																																																																		</a> #}
 							<a class="dropdown-item disabled">{{ app.user.userName }}</a>
 							<span class="divider"></span>
 

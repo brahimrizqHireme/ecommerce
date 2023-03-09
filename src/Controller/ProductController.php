@@ -34,20 +34,12 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ProductController extends AbstractController
 {
 
-    private readonly EntityManagerInterface $em;
-    private readonly ProductRepository $productRepository;
-    private readonly CategoryRepository $categoryRepository;
-    private readonly SluggerInterface $slugger;
     public function __construct(
-        EntityManagerInterface $em,
-        ProductRepository $productRepository,
-        CategoryRepository $categoryRepository,
-        SluggerInterface $slugger
+        private readonly EntityManagerInterface $em,
+        private readonly ProductRepository $productRepository,
+        private readonly CategoryRepository $categoryRepository,
+        private readonly SluggerInterface $slugger
     ) {
-        $this->em = $em;
-        $this->productRepository = $productRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->slugger = $slugger;
     }
 
     #[Route('/{slug}', name: 'product_category', priority: -1)]

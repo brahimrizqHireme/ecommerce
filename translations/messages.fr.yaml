@@ -32,3 +32,6 @@ navbar:
   logout: Se déconnecter
   choose_language: Choisir la langue
   user: Compte
+
+cart:
+  page_title: Panier %title%
