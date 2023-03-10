@@ -24,8 +24,8 @@
 				<th scope="row"></th>
 			</tr>
 		</thead>
-		{% set totalVar = 0 %}
 		<tbody>
+			{% set totalVar = 0 %}
 			{% if  items|length > 0 %}
 				{% for item in items %}
 
@@ -59,13 +59,36 @@
 				</tr>
 			{% endif %}
 		</tbody>
-	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="3">
-				Total :
-			</td>
-			<td colspan="2">{{(totalVar/100)|format_currency('EUR', { rounding_mode: 'floor'})}}</td>
-		</tr>
-	</tfoot>
-</table>{% endblock %}
+		<tfoot>
+			<tr>
+				<td colspan="3">
+					Total :
+				</td>
+				<td colspan="2">{{(totalVar/100)|format_currency('EUR', { rounding_mode: 'floor'})}}</td>
+			</tr>
+		</tfoot>
+	</table>
+	<br><br>
+
+	{% if app.user %}
+
+		<h2>Please confirm your command by fill in you're delivery details</h2>
+
+		{{form_start(formView, {'action' : path('purchase_confirm')})}}
+		{{form_row(formView.fullName, {'attr' : {'class' : 'my-2'}})}}
+		{{form_row(formView.address, {'attr' : {'class' : 'my-2'}})}}
+		{{form_row(formView.postCode, {'attr' : {'class' : 'my-2'}})}}
+		{{form_row(formView.city, {'attr' : {'class' : 'my-2'}})}}
+
+		<button class="btn btn-primary" type="submit">
+			Confirm</button>
+		{{form_end(formView)}}
+
+	{% else %}
+		<h2>To confirm you're command, please login</h2>
+		<a href="{{path('app_login')}}" class="btn btn-success">Login</a>
+		Or
+		<a href="#" class="">Signup</a>
+	{% endif %}
+
+{% endblock %}

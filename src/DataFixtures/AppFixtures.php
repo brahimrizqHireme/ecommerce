@@ -6,6 +6,8 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\Purchase;
+use App\Entity\PurchaseItem;
 use App\Entity\User;
 use Bezhanov\Faker\Provider\Commerce;
 use Bluemmb\Faker\PicsumPhotosProvider;
@@ -30,7 +32,7 @@ class AppFixtures extends Fixture
         $faker->addProvider(new Prices($faker));
         $faker->addProvider(new Commerce($faker));
         $faker->addProvider(new PicsumPhotosProvider($faker));
-
+        $users = [];
         $admin = new User();
         $hashedPassword = $this->encoder->hashPassword($admin, 'password');
         $admin->setEmail('admin@admin.com')
@@ -45,8 +47,10 @@ class AppFixtures extends Fixture
             $user->setEmail("user$u@admin.com")
                 ->setUserName($faker->userName())
                 ->setPassword($hashedPassword);
+            $users[] = $user;
             $manager->persist($user);
         }
+        $products = [];
         for ($c = 0; $c < 3; $c++) {
             $category = new Category;
 
@@ -63,11 +67,43 @@ class AppFixtures extends Fixture
                     ->setMainPicture($faker->imageUrl(400, 400, true))
                     ->setSlug(strtolower($this->slugger->slug($product->getName())->toString()))
                     ->setCategory($category);
-
+                $products[] = $product;
                 $manager->persist($product);
             }
         }
 
+        for ($o = 0; $o < random_int(20, 25); $o++) {
+            $purchase = new Purchase();
+            $purchase->setAddress($faker->streetAddress())
+                ->setPostCode($faker->postcode())
+                ->setCity($faker->city())
+                ->setFullName($faker->userName())
+                ->setTotal(mt_rand(3000, 30000))
+                ->setPurchasedAt($faker->dateTimeBetween('-6 months'))
+                ->setUser($faker->randomElement($users));
+
+            $selectedProducts = $faker->randomElements($products, mt_rand(3, 5));
+
+            foreach ($selectedProducts as $selectedProduct) {
+                $purchaseItem = new PurchaseItem;
+                $purchaseItem->setProduct($selectedProduct)
+                    ->setPurchase($purchase)
+                    ->setQuantity(mt_rand(1, 4))
+                    ->setProductName($selectedProduct->getName())
+                    ->setProductPrice($selectedProduct->getPrice())
+                    ->setTotal(
+                        $purchaseItem->getProductPrice() * $purchaseItem->getQuantity()
+                    );
+
+                $manager->persist($purchaseItem);
+            }
+
+            if ($faker->boolean(80)) {
+                $purchase->setStatus(Purchase::PAID_STATUS);
+            }
+
+            $manager->persist($purchase);
+        }
         $manager->flush();
     }
 }

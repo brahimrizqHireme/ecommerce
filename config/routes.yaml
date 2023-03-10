@@ -9,6 +9,16 @@ controllers:
     defaults:
         _locale: '%locale%' 
 
+# purchase_controllers:
+#     resource: '../src/Controller/purchase/*'
+#     type: annotation
+#     # exclude: 
+#     #     - '../src/Controller/SecurityController.php'
+#     prefix: /{_locale}
+#     requirements:
+#         _locale: '%app_locales%'
+#     defaults:
+#         _locale: '%locale%'
 homepage:
     path: /{_locale}
     controller: App\Controller\HomeController::home

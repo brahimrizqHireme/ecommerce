@@ -44,6 +44,9 @@ class CartService
         $this->session->set('cart_qte', $cartQte);
     }
 
+    /**
+     * @return CartItem[]
+     */
     public function getDetailsCartItems(): array
     {
         $cartQte = 0;
@@ -62,6 +65,12 @@ class CartService
         $this->session->set('cart_qte', $cartQte);
 
         return $items;
+    }
+
+    public function empty(): void
+    {
+        $this->session->set('cart_qte', 0);
+        $this->saveCart([]);
     }
 
     public function getTotal(): int

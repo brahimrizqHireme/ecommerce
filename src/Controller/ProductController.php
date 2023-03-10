@@ -55,7 +55,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{category_slug}/{slug}', name: 'product_show')]
+    #[Route('/{category_slug}/{slug}', name: 'product_show', priority: -1)]
     #[ParamConverter('product', class: 'App\Entity\Product', options: ['mapping' => ['slug' => 'slug']])]
     public function show(string $slug, ?Product $product)
     {

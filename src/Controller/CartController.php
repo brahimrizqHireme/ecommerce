@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Enum\Requirement;
+use App\Form\CartConfirmationType;
 use App\Repository\ProductRepository;
 use App\Service\Cart\CartService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -50,8 +51,10 @@ class CartController extends AbstractController
     #[Route('/card', name: 'cart_show', methods: ['GET'])]
     public function show()
     {
+        $form = $this->createForm(CartConfirmationType::class);
         return $this->render('cart/show.html.twig', [
-            'items' => $this->cartService->getDetailsCartItems()
+            'items' => $this->cartService->getDetailsCartItems(),
+            'formView' => $form->createView()
         ]);
     }
 
