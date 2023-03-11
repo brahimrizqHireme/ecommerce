@@ -18,6 +18,12 @@ services:
             string $locales: '%app_locales%'
             string $defaultLocale: '%locale%'
             string $emailSender: '%app.notifications.email_sender%'
+            # Countable $purchasePersisters: !tagged_iterator purchase.doctrine.persister
+            # Countable $costumTags  : !tagged_iterator app.purchase.persister
+  
+    _instanceof:
+        App\Persister\PersisterInterface:
+            tags: ['purchase.doctrine.persister']
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -41,3 +47,11 @@ services:
     # App\Decorator\SessionFactoryShoppingCartBag:
     #     decorates: session.factory
     #     arguments: ['@.inner']
+
+    
+    # App\Persister\PersisterInterface : '@App\Persister\PurchaseDoctrinePersister'
+    # App\Persister\PersisterInterface $purchaseDoctrinePersister: '@App\Persister\PurchaseDoctrinePersister'
+    # App\Persister\PersisterInterface $purchaseDoctrinePersisterSecond: '@App\Persister\PurchaseDoctrinePersisterSecond'
+    # purchase.doctrine.persister: 
+    #     alias: App\Persister\PersisterInterface
+    #     public: true

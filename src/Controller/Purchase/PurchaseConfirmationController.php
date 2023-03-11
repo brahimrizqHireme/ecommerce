@@ -6,6 +6,7 @@ use App\Entity\Purchase;
 use App\Entity\PurchaseItem;
 use App\Entity\User;
 use App\Form\CartConfirmationType;
+use App\Persister\PersisterInterface;
 use App\Service\Cart\CartItem;
 use App\Service\Cart\CartService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,12 +26,9 @@ class PurchaseConfirmationController extends AbstractController
 {
 
     public function __construct(
-        private Security $security,
         private EntityManagerInterface $em,
-        private FormFactoryInterface $formFactory,
-        private Environment $twig,
+        private PersisterInterface $persisterInterface,
         private CartService $cartService,
-        private RouterInterface $router
     ) {
     }
 
@@ -38,9 +36,7 @@ class PurchaseConfirmationController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function confirm(Request $request): Response
     {
-        /**@var User */
-        $user = $this->getUser();
-        $form = $this->formFactory->create(CartConfirmationType::class);
+        $form = $this->createForm(CartConfirmationType::class);
         $form->handleRequest($request);
 
         if (!$form->isSubmitted()) {
@@ -49,34 +45,14 @@ class PurchaseConfirmationController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $items = $this->cartService->getDetailsCartItems();
-
-            if ($items < 1) {
+            if (count($this->cartService->getDetailsCartItems()) < 1) {
                 $this->addFlash('warning', 'Cart is Empty!');
                 return $this->redirectToRoute('cart_show');
             }
 
             /**@var Purchase */
             $purchase = $form->getData();
-            $purchase->setPurchasedAt(new \DateTime)
-                ->setUser($user)
-                ->setTotal($this->cartService->getTotal());
-            $this->em->persist($purchase);
-
-            /**@var CartItem $item */
-            foreach ($items as $item) {
-                $purchaseItem = new PurchaseItem;
-                $purchaseItem->setProduct($item->getProduct())
-                    ->setQuantity($item->getQuantity())
-                    ->setProductName($item->getProduct()->getName())
-                    ->setProductPrice($item->getProduct()->getPrice())
-                    ->setPurchase($purchase)
-                    ->setTotal($item->getTotal());
-
-                $this->em->persist($purchaseItem);
-            }
-
-            $this->em->flush();
+            $this->persisterInterface->storePurchase($purchase);
             $this->cartService->empty();
         }
 
