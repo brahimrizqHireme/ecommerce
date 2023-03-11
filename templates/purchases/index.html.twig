@@ -19,6 +19,7 @@
 				<th scope="row">Number</th>
 				<th scope="row">Address</th>
 				<th scope="row">Date</th>
+				<th scope="row">Status</th>
 				<th scope="row">Products</th>
 				<th scope="row">Total</th>
 				<th scope="row"></th>
@@ -36,6 +37,9 @@
 							{{purchase.city}}
 						</td>
 						<td>{{purchase.purchasedAt.format('m-d-Y H:s')}}</td>
+						<td>
+							{{purchase.status}}
+						</td>
 						<td>
 							<ul>
 								{% for item in purchase.purchaseItems %}

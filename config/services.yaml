@@ -8,6 +8,8 @@ parameters:
     locale: 'en'
     app_locales: en|fr
     app.notifications.email_sender: anonymous@example.com
+    stripe_key: '%env(STRIPE_KEY)%'
+    stripe_secret: '%env(STRIPE_SECRET)%'
 
 services:
     # default configuration for services in *this* file
@@ -47,7 +49,10 @@ services:
     # App\Decorator\SessionFactoryShoppingCartBag:
     #     decorates: session.factory
     #     arguments: ['@.inner']
-
+    App\Service\Stripe\StripeService:
+        arguments:
+            $stripeSecret : '%stripe_secret%'
+            $stripeKey : '%stripe_key%'
     
     # App\Persister\PersisterInterface : '@App\Persister\PurchaseDoctrinePersister'
     # App\Persister\PersisterInterface $purchaseDoctrinePersister: '@App\Persister\PurchaseDoctrinePersister'

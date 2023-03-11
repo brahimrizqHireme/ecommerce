@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PruchaseRepository;
+use App\Repository\PurchaseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: PruchaseRepository::class)]
+#[ORM\Entity(repositoryClass: PurchaseRepository::class)]
 class Purchase
 {
     const PENDING_STATUS = 'PENDING';
